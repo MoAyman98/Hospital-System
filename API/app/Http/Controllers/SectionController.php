@@ -50,4 +50,16 @@ class SectionController extends Controller
 
         return "Booking already exists";
     }
+
+    public function GetBookings()
+    {
+        $role = auth()->user()->role;
+
+        if($role==1)
+        {
+            return "Bookings Bas lesa";
+        }
+
+        return "You are not welcome here";
+    }
 }
