@@ -57,7 +57,7 @@ class SectionController extends Controller
 
         if($role==1)
         {
-            return "Bookings Bas lesa";
+            return Booking::all();
         }
 
         return "You are not welcome here";
