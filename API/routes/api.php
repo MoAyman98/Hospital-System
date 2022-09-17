@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -26,11 +28,13 @@ Route::post('/register',[UserController::class, 'Register']);
 
 Route::post('/login',[UserController::class, 'Login']);
 
-Route::get('/appointments/{id}',[SectionController::class, 'GetAppointments']);
+Route::get('/appointments/{id}',[AppointmentController::class, 'GetAppointments']);
 
-Route::post('/bookapp',[SectionController::class, 'BookAppointment']);
+Route::post('/bookapp',[AppointmentController::class, 'BookAppointment']);
 
 Route::get('/user',[UserController::class, 'GetUser']);
+
+Route::get('/bookings',[BookingController::class,'GetBookings']);
 
 
 

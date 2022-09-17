@@ -53,4 +53,8 @@ export class AccountService {
     this.userRole.next(null);
   }
 
+  getUser() {
+    return this.http.get(this.baseUrl + 'user');
+  }
+
 }
