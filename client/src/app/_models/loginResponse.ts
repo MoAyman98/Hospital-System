@@ -3,4 +3,5 @@ export interface loginResponse {
     status: number;
     code: number;
     message: string;
+    role: number;
 }

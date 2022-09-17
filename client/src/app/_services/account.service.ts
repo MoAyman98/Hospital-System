@@ -12,6 +12,8 @@ export class AccountService {
   baseUrl = "http://127.0.0.1:8000/api/";
   private currentUserSource = new ReplaySubject<string>(1);
   currentUser$ = this.currentUserSource.asObservable();
+  private userRole = new ReplaySubject<number>(1);
+  userRole$ = this.userRole.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -19,9 +21,10 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'login', model).pipe(
       map((response: loginResponse) => {
         const user = response;
-        if (user) {
+        if (user && response['status']===1) {
           localStorage.setItem("Token", JSON.stringify(user.token));
           this.currentUserSource.next(user.token);
+          this.userRole.next(user.role);
         }
         return user;
       })
@@ -47,6 +50,7 @@ export class AccountService {
   logout() {
     localStorage.removeItem('Token');
     this.currentUserSource.next(null);
+    this.userRole.next(null);
   }
 
 }

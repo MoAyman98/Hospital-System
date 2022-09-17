@@ -29,26 +29,35 @@ class SectionController extends Controller
         return response()->json($appointments);
     }
 
-    public function BookAppointment($appid,$depname,$appdate)
+    public function BookAppointment(Request $request)
     {
-        $exists= Booking::where('appointment_id',$appid)->exists();
+        $exists= Booking::where('appointment_id',($request->id))->exists();
 
         if(!$exists)
         {
-            $booking = Booking::create([
-                "appointment_id" => $appid,
-                "department_name" => $depname,
-                "appointment_date" => $appdate,
-                "username" => auth()->user()->name,
-                "user_id" => auth()->user()->id
-            ]);
+            // $booking = Booking::create([
+            //     "appointment_id" => $request->id,
+            //     "department_name" => $request->department_name,
+            //     "appointment_date" => $request->appointment_date,
+            //     "username" => auth()->user()->name,
+            //     "user_id" => auth()->user()->id
+            // ]);
+            $booking = new Booking();
+            $booking->appointment_id = $request->id;
+            $booking->department_name = $request->department_name;
+            $booking->appointment_date = $request->appointment_date;
+            $booking->username = auth()->user()->name;
+            $booking->user_id = auth()->user()->id;
 
-            Appointment::where("id",$appid)->update(['taken'=>1]);
+            $booking->save();
 
-            return "Booking Saved Successfully";
+            Appointment::where("id",$request->id)->update(['taken'=>1]);
+
+            return response()->json("Booking Saved Successfully");
         }
-
-        return "Booking already exists";
+        else {
+            return response()->json("Booking already exists");
+        }
     }
 
     public function GetBookings()

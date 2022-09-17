@@ -28,7 +28,7 @@ Route::post('/login',[UserController::class, 'Login']);
 
 Route::get('/appointments/{id}',[SectionController::class, 'GetAppointments']);
 
-Route::post('/bookapp/{appid}/{depname}/{appdate}',[SectionController::class, 'BookAppointment']);
+Route::post('/bookapp',[SectionController::class, 'BookAppointment']);
 
 Route::get('/user',[UserController::class, 'GetUser']);
 

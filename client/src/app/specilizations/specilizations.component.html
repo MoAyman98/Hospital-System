@@ -1,0 +1,14 @@
+<!-- <div class="container-lg" style="margin: 0 auto;"> -->
+    <div class="card-group">
+        <div *ngFor="let spec of specs">
+            <div class="card m-4" style="width: 18rem;height: 300px;">
+                <img style="width: 18rem;height: 170px;" src="/assets/images/{{spec.image}}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{spec.name}}</h5>
+                    <a routerLink="/appointments/{{spec.id}}" class="btn btn-primary">See Appointments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->
+

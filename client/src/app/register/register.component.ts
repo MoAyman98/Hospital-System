@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { register } from '../_models/register';
 import { AccountService } from '../_services/account.service';
 
@@ -14,9 +15,9 @@ export class RegisterComponent implements OnInit {
     password: ''
   };
   confirm : boolean;
-  confirmPassword: string;
+  confirmPassword: string = "";
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -24,13 +25,15 @@ export class RegisterComponent implements OnInit {
   register() {
     this.accountService.register(this.model).subscribe({
       next : response => {
-        console.log(response);
-        // this.route.navigateByUrl("/home");
-        // this.toast.success("Account created successfully")
+        this.model.name = this.model.email = this.model.password = this.confirmPassword = "";
+        if(response['message']!=='Email already exists!') {
+          this.toast.success(response['message']);
+        } else {
+          this.toast.error(response['message']);
+        }
       } ,
       error : error => {
-        // this.toast.error(error.error.title);
-        console.log(error);
+        this.toast.error(error[error]);
       }
     })
   }

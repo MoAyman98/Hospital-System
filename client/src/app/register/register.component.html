@@ -26,11 +26,11 @@
     </div>
 
     <div class="form-group mt-2">
-        <input (keyup)="compare()" type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirm Password" required #confirmPassword="ngModel">
+        <input (keyup)="compare()" type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirm Password" required #conPassword="ngModel">
     </div>
 
     <div class="mt-1">
-        <h6 *ngIf="!confirm && confirmPassword.touched" style="color: red;font-size: small;">Confirm password should be same as password</h6>
+        <h6 *ngIf="!confirm && conPassword.touched" style="color: red;font-size: small;">Confirm password should be same as password</h6>
     </div>
 
     <div class="form-group text-center mt-2">

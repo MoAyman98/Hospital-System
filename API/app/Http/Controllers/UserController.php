@@ -68,7 +68,7 @@ class UserController extends Controller
         $respone["status"] = 1;
         $respone["code"] = 200;
         $respone["message"] = "Login Successful";
-        // $respone["role"] = auth()->user()->role;
+        $respone["role"] = auth()->user()->role;
         // $respone["id"] = auth()->user()->id;
         // $respone["name"] = auth()->user()->name;
         // $respone["email"] = auth()->user()->email;

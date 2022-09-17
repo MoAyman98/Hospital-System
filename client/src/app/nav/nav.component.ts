@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { loginResponse } from '../_models/loginResponse';
 import { AccountService } from '../_services/account.service';
@@ -11,7 +13,7 @@ import { AccountService } from '../_services/account.service';
 export class NavComponent implements OnInit {
   model: any = {};
 
-  constructor(public accountService: AccountService) { }
+  constructor(public accountService: AccountService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -19,20 +21,22 @@ export class NavComponent implements OnInit {
   login() {
     this.accountService.login(this.model).subscribe({
       next: (response) => {
-        console.log(response);
-        // this.toast.success(`Welcome ${this.model.username}`);
-        // this.router.navigateByUrl("/home");
+        if(response['message']==='Login Successful') {
+          this.toast.success(response['message']);
+          this.router.navigateByUrl("/home");
+        } else {
+          this.toast.error(response['message']);
+        }
       },
       error: error => {
-        console.log(error);
-        // this.toast.error(error.error.message);
+        this.toast.error("Incorrect Email or Password");
       }
     })
   }
 
   logout() {
     this.accountService.logout();
-    // this.router.navigateByUrl("/");
+    this.router.navigateByUrl("/");
     this.model.username = "";
     this.model.password = "";
   }
